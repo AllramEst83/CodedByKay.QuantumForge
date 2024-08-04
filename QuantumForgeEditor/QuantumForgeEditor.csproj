@@ -24,4 +24,8 @@
     <!-- Relative to the base output path -->
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Converters\" />
+  </ItemGroup>
+
 </Project>

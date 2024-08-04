@@ -1,0 +1,54 @@
+﻿<Window x:Class="QuantumForgeEditor.GameProject.ProjectBrowserDilaog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QuantumForgeEditor.GameProject"
+        mc:Ignorable="d"
+        xmlns:viewmodels="clr-namespace:QuantumForgeEditor.ViewModels"
+        Title="ProjectBrowserDilaog" Height="450" Width="800"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.DataContext>
+        <viewmodels:ProjectBrowserDilaogViewModel/>
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="20">
+            <ToggleButton 
+                Command="{Binding ToggleCommand}" 
+                CommandParameter="Create"
+                Content="Create project" 
+                FontSize="32" 
+                Padding="5"
+                IsChecked="{Binding IsCreateProjectVisible, Mode=OneWay}"
+                />
+
+            <ToggleButton 
+                Command="{Binding ToggleCommand}" 
+                CommandParameter="Open"
+                Content="Open project" 
+                FontSize="32" 
+                Padding="5" 
+                Margin="30,0,0,0"
+                IsChecked="{Binding IsOpenProjectVisible, Mode=OneWay}"
+                />
+        </StackPanel>
+
+        <Grid Grid.Row="1">
+            <Border Background="LightBlue" Visibility="{Binding IsCreateProjectVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBlock Text="Create project" FontSize="72"/>
+            </Border>
+
+            <Border Background="LightCoral" Visibility="{Binding IsOpenProjectVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBlock Text="Open project" FontSize="72"/>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

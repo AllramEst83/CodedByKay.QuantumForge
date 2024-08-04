@@ -1,13 +1,5 @@
-﻿using System.Text;
+﻿using QuantumForgeEditor.GameProject;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace QuantumForgeEditor
 {
@@ -19,6 +11,29 @@ namespace QuantumForgeEditor
         public MainWindow()
         {
             InitializeComponent();
+            Loaded += MainWindow_Loaded;
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            Loaded -= MainWindow_Loaded;
+
+            // Open the dialog when the main window is loaded
+            ProjectBrowserDilaog projectBrowserDialog = new()
+            {
+                Owner = this
+            };
+            bool? dialogClosed = projectBrowserDialog.ShowDialog();
+
+            if (dialogClosed == false)
+            {
+                Application.Current.Shutdown();
+            }
+            else
+            {
+                // Logic to be implemented if the dialog is not closed with a negative result
+            }
         }
     }
+
 }
