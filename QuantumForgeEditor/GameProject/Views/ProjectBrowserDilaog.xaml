@@ -4,9 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QuantumForgeEditor.GameProject"
+        xmlns:views="clr-namespace:QuantumForgeEditor.GameProject.Views"
         mc:Ignorable="d"
         xmlns:viewmodels="clr-namespace:QuantumForgeEditor.ViewModels"
-        Title="ProjectBrowserDilaog" Height="450" Width="800"
+        Title="Project browser" 
+        Height="580" 
+        Width="800"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
 
@@ -43,11 +46,11 @@
 
         <Grid Grid.Row="1">
             <Border Background="LightBlue" Visibility="{Binding IsCreateProjectVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <TextBlock Text="Create project" FontSize="72"/>
+                <views:NewProjectView />
             </Border>
 
             <Border Background="LightCoral" Visibility="{Binding IsOpenProjectVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <TextBlock Text="Open project" FontSize="72"/>
+                <views:OpenProjectView />
             </Border>
         </Grid>
     </Grid>

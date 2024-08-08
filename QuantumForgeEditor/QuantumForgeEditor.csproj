@@ -25,7 +25,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Converters\" />
+    <None Remove="GameProject\Resources\first_person.jpeg" />
+    <None Remove="GameProject\Resources\third_person.jpeg" />
+    <None Remove="GameProject\Resources\top_down.jpeg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="GameProject\Converters\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="GameProject\Resources\first_person.jpeg" />
+    <Resource Include="GameProject\Resources\third_person.jpeg" />
+    <Resource Include="GameProject\Resources\top_down.jpeg" />
   </ItemGroup>
 
 </Project>

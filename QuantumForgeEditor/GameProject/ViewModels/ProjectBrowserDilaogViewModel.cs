@@ -1,4 +1,7 @@
-﻿using System.ComponentModel;
+﻿using QuantumForgeEditor.Commands;
+using QuantumForgeEditor.GameProject.Models;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows.Input;
 
 namespace QuantumForgeEditor.ViewModels
@@ -6,11 +9,19 @@ namespace QuantumForgeEditor.ViewModels
     public class ProjectBrowserDilaogViewModel : INotifyPropertyChanged
     {
         private bool _isCreateProjectVisible;
+        private string _selectedProjectType;
 
         public ProjectBrowserDilaogViewModel()
         {
             _isCreateProjectVisible = true;
-            ToggleCommand = new RelayCommand(ToggleVisibility);
+            ToggleCommand = new ProjectBrowserRelayCommand(ToggleVisibility);
+
+            ProjectTypes =
+            [
+                new ProjectType { Name = "First Person Game", ImagePath = "pack://application:,,,/GameProject/Resources/first_person.jpeg" },
+                new ProjectType { Name = "Third Person Game", ImagePath = "pack://application:,,,/GameProject/Resources/third_person.jpeg" },
+                new ProjectType { Name = "Top Down Game", ImagePath = "pack://application:,,,/GameProject/Resources/top_down.jpeg" }
+            ];
         }
 
         public bool IsCreateProjectVisible
@@ -29,6 +40,19 @@ namespace QuantumForgeEditor.ViewModels
 
         public bool IsOpenProjectVisible => !IsCreateProjectVisible;
 
+        public string SelectedProjectType
+        {
+            get => _selectedProjectType;
+            set
+            {
+                if (_selectedProjectType != value)
+                {
+                    _selectedProjectType = value;
+                    OnPropertyChanged(nameof(SelectedProjectType));
+                }
+            }
+        }
+
         public ICommand ToggleCommand { get; }
 
         private void ToggleVisibility(object? parameter)
@@ -45,27 +69,7 @@ namespace QuantumForgeEditor.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-    }
 
-    public class RelayCommand : ICommand
-    {
-        private readonly Action<object?> _execute;
-        private readonly Func<object?, bool>? _canExecute;
-
-        public RelayCommand(Action<object?> execute, Func<object?, bool>? canExecute = null)
-        {
-            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
-            _canExecute = canExecute;
-        }
-
-        public bool CanExecute(object? parameter) => _canExecute == null || _canExecute(parameter);
-
-        public void Execute(object? parameter) => _execute(parameter);
-
-        public event EventHandler? CanExecuteChanged
-        {
-            add => CommandManager.RequerySuggested += value;
-            remove => CommandManager.RequerySuggested -= value;
-        }
+        public ObservableCollection<ProjectType> ProjectTypes { get; }
     }
 }
